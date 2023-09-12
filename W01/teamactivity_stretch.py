@@ -13,9 +13,11 @@ def clear_cls():
     else:
         print("Undetermined OS")
 
-def imprime(array):
-    None
-        
+def print_items(price_items):
+    print("----------------------------------")
+    for i in range(len(price_items)):        
+        print(f"Item {i+1}: {price_items[i][0]}\tQuantity: {price_items[i][1]}\nTotal of item {i+1}: {round(price_items[i][0]*price_items[i][1],2)}")
+        print("----------------------------------")
 clear_cls()
 subtotal = 0
 price = ""
@@ -36,9 +38,8 @@ while price != 0:
 
 day_of_week = datetime.datetime.now().weekday()
 clear_cls()
+print_items(price_items)
 
-for i in range(len(price_items)):
-    print(f"Item {i+1}: {price_items[i][0]}\tQuantity: {price_items[i][1]}\nTotal of item {i+1}: {round(price_items[i][0]*price_items[i][1],2)}\n")
 print(f"Subtotal: {round(subtotal,2)}")
 
 if day_of_week == 1 or day_of_week == 2:
@@ -49,3 +50,4 @@ if day_of_week == 1 or day_of_week == 2:
 
 print(f"Sales Tax: {(subtotal * 0.06):.2f}")
 print(f"Total: {(subtotal * 1.06):.2f}")
+print()
