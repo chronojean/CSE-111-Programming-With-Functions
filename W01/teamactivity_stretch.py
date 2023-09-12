@@ -11,14 +11,41 @@ def clear_cls():
     elif sistema_operativo == "Linux":
         os.system('clear')
     else:
-        print("No se pudo determinar el sistema operativo")
+        print("Undetermined OS")
+
+def imprime(array):
+    None
         
 clear_cls()
+subtotal = 0
+price = ""
+count = 0
+cant = 0
+price_items = []
+while price != 0:
+    clear_cls()
+    if(subtotal>0):
+        print(f"Subtotal: {round(subtotal,2)}")
+    price = float(input(f"Price of item {count+1}: "))
+    if(price== 0):
+        break
+    count += 1
+    cant = float(input(f"Quantity of item {count}: "))
+    price_items.append([price,cant])
+    subtotal += (price*cant)
 
-subtotal = float(input("Ingresa el subtotal del cliente: "))
 day_of_week = datetime.datetime.now().weekday()
+clear_cls()
 
-subtotal *= 0.90 if subtotal >= 50 and (day_of_week == 1 or day_of_week == 2) else 1
+for i in range(len(price_items)):
+    print(f"Item {i+1}: {price_items[i][0]}\tQuantity: {price_items[i][1]}\nTotal of item {i+1}: {round(price_items[i][0]*price_items[i][1],2)}\n")
+print(f"Subtotal: {round(subtotal,2)}")
 
-print(f"Monto del impuesto de ventas: {(subtotal * 0.06):.2f}")
+if day_of_week == 1 or day_of_week == 2:
+    if subtotal >= 50:
+        subtotal *= 0.90
+    else:
+        print(f"Amount needed to receive the discount: {(50-subtotal):.2f}")
+
+print(f"Sales Tax: {(subtotal * 0.06):.2f}")
 print(f"Total: {(subtotal * 1.06):.2f}")

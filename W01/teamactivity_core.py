@@ -11,14 +11,14 @@ def clear_cls():
     elif sistema_operativo == "Linux":
         os.system('clear')
     else:
-        print("No se pudo determinar el sistema operativo")
+        print("Undetermined OS")
         
 clear_cls()
 
-subtotal = float(input("Ingresa el subtotal del cliente: "))
+subtotal = float(input("Enter the customer subtotal: "))
 day_of_week = datetime.datetime.now().weekday()
 
 subtotal *= 0.90 if subtotal >= 50 and (day_of_week == 1 or day_of_week == 2) else 1
 
-print(f"Monto del impuesto de ventas: {(subtotal * 0.06):.2f}")
+print(f"Sales Tax: {(subtotal * 0.06):.2f}")
 print(f"Total: {(subtotal * 1.06):.2f}")
