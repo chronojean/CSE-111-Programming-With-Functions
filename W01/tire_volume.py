@@ -6,6 +6,7 @@ import sys
 
 
 def clear_cls():
+    """Use the clear terminal function for Linux or Windows"""
     sistema_operativo = platform.system()
     if sistema_operativo == "Windows":
         os.system('cls')
@@ -15,6 +16,10 @@ def clear_cls():
         print("Undetermined OS")      
 
 def append_volumes_txt(linea):
+    """Appends a string to the file 'volumes.txt'
+    
+        Returns: the content of the file after appending the line
+    """
     try:
         with open("./volumes.txt", "a+") as file:
             file.write(f"{linea}\n")
@@ -25,6 +30,7 @@ def append_volumes_txt(linea):
         input("An error occurred while opening the file. Maybe the file is blocked or marked as 'read only' or you don't have the permission to access the file")
         
 def good_bye_message(message="-----Thank You for buying at MythStore.com-----"):
+    """Prints a good looking 'Good Bye' message. If the message is not specified for the user, it prints the default message."""
     print("***********************************************")
     print(message)
     print("***********************************************")
