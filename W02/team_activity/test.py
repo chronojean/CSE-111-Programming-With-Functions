@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def print_list(lista, sorted_by_column=0, row_separator="-", column_separator="|"):
     for i in range(len(lista)):
         row = lista[i]
@@ -31,3 +32,16 @@ cans = [['Name', 'Radius cm', 'Height cm', 'Cost/Can $', 'Volume cm3', 'Surface 
 copied_cans = cans.copy()
 copied_cans[2] = []
 print_list(cans)
+=======
+def get_text_file(filename):
+    """Opens a file and return it's content."""
+    try:
+        with open(filename, "r") as file:
+            f = file.read()
+    except:
+        print("An error occurred while opening the file. Maybe the file is missing, protected or you don't have the permission to access the file")
+    return f
+
+print(get_text_file("can_size.txt"))
+
+>>>>>>> 4b556a4 (all)

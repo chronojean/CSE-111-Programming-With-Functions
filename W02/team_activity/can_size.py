@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import math
 import os
 import platform
@@ -15,11 +16,18 @@ def get_text_file(filename):
     """Opens a file and return it's content."""
     try:
         with open(filename, "r") as file:
+=======
+def get_text_file(filename):
+    """Opens a file and return it's content."""
+    try:
+        with open(filename, "a+") as file:
+>>>>>>> 4b556a4 (all)
             return file.read()
     except IOError:
         print("An error occurred while opening the file. Maybe the file is missing, protected or you don't have the permission to access the file")
         return None
     
+<<<<<<< HEAD
 def text_matrix_to_array(text="",line="\n",column=","):
     """Converts a string into an array[][] using specified separators"""
     return [row.split(column) for row in text.split(line) if len(row)>0]
@@ -103,3 +111,19 @@ def main():
             if(resp!="X"):
                 input("Invalid option.")
 main()
+=======
+def text_matrix_to_array():
+    pass
+
+def compute_volume():
+    pass
+def surface_area():
+    pass
+def compute_storage_efficiency():
+    pass
+def compute_cost_efficiency():
+    pass
+
+def main():
+    pass
+>>>>>>> 4b556a4 (all)
