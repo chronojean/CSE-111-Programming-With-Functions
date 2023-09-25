@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 472 290">
+<style>
+.bk{fill:#fff}
+.start{stroke-width:2;stroke:#000;fill:none}
+
+.std>rect,.user>rect{stroke-width:1;stroke:#000;rx:4}
+.std>rect{fill:#cfe2fe}
+.user>rect{fill:#fce5cd}
+text{font:13.5px Arial,sans-serif;text-anchor:middle;fill:#000}
+.head{font-weight:bold}
+
+.call,.return{stroke-width:1;stroke:#444}
+.shaft{fill:none}
+.return>.shaft{stroke-dasharray:4 3}
+.tip{fill:#444}
+</style>
+
+<rect class="bk" x="0" y="0" width="472" height="290"/>
+<text class="head" x="220" y="22">Test Functions</text>
+<text class="head" x="396" y="22">Program Functions</text>
+<circle class="start" cx="16" cy="24" r="8"/>
+
+<g class="std">
+<rect x="16" y="56" width="88" height="24"/>
+<text x="60" y="73">pytest.main</text>
+</g>
+<g class="call">
+<path class="shaft" d="m24 24c9 0 18 4 24.75 10c3.38 3 6.19 6.5 8.16 10.25c.98 1.88 1.76 3.81 2.29 5.78l.01.02"/>
+<path class="tip" d="m57.56 50.27l2.24 4.28l1.03-4.72z"/>
+</g>
+
+<g class="user">
+<rect x="144" y="56" width="144" height="24"/>
+<text x="216" y="73">test_make_full_name</text>
+</g>
+<g class="call">
+<path class="shaft" d="m104 60c10 0 11.2-6.9 20-14.5c8.8-7.6 25.2-15.9 46-14.5c10.4.7 21.9 3.83 30.8 8.34c4.45 2.26 8.25 4.86 10.94 7.68c.67.71 1.27 1.42 1.8 2.15c.13.18.26.37.38.55c.06.09.12.18.18.28l.16.26"/>
+<path class="tip" d="m212.68 50.74l2.9 3.86l.26-4.82z"/>
+</g>
+
+<g class="user">
+<rect x="136" y="144" width="168" height="24"/>
+<text x="220" y="161">test_extract_family_name</text>
+</g>
+<g class="call">
+<path class="shaft" d="m104 60c29 0 58 10.5 79.75 26.25c10.88 7.88 19.94 17.06 26.28 26.91c3.17 4.92 5.66 10.01 7.36 15.18c.85 2.58 1.5 5.19 1.94 7.8c.05.33.11.65.15.98c.02.16.05.33.07.49l.05.41"/>
+<path class="tip" d="m217.96 138.12l1.94 4.42l1.36-4.64z"/>
+</g>
+
+<g class="user">
+<rect x="136" y="232" width="168" height="24"/>
+<text x="220" y="249">test_extract_given_name</text>
+</g>
+
+<g class="call">
+<path class="shaft" d="m104 60c29 0 58 21.5 79.75 53.75c10.88 16.13 19.94 34.94 26.28 55.09c3.17 10.08 5.66 20.49 7.36 31.07c.85 5.29 1.5 10.62 1.94 15.98c.22 2.68.39 5.36.5 8.04c.03.67.05 1.34.07 2.01l0.05"/>
+<path class="tip" d="m218.25 226.03l1.72 4.51l1.58-4.56z"/>
+</g>
+
+<g class="user">
+<rect x="336" y="56" width="112" height="24"/>
+<text x="392" y="73">make_full_name</text>
+</g>
+<g class="call">
+<path class="shaft" d="m288 60c12 0 15.47-6.9 24-14.5c8.53-7.6 22.13-15.9 40-14.5c8.93.7 18.93 3.83 26.7 8.34c3.88 2.26 7.21 4.86 9.56 7.68c.59.71 1.12 1.42 1.58 2.15c.12.18.23.37.33.55c.05.09.11.18.16.28l.11.21"/>
+<path class="tip" d="m388.85 50.63l2.77 3.95l.42-4.81z"/>
+</g>
+<g class="return">
+<path class="shaft" d="m392 80c0 12.5-22.13 23.6-40 25c-17.87 1.4-31.47-6.9-40-14.5c-4.27-3.8-7.27-7.43-10.7-10.1c-1.72-1.34-3.54-2.44-5.69-3.2c-.27-.1-.54-.19-.82-.27c-.14-.04-.28-.08-.42-.12l-.41-.11"/>
+<path class="tip" d="m294.15 75.05l-4.7 1.12l4.32 2.16z"/>
+</g>
+
+<g class="user">
+<rect x="328" y="144" width="136" height="24"/>
+<text x="396" y="161">extract_family_name</text>
+</g>
+<g class="call">
+<path class="shaft" d="m304 148c6 0 5.07-6.9 12-14.5c6.93-7.6 21.73-15.9 40-14.5c9.13.7 19.13 3.82 26.85 8.34c3.86 2.26 7.15 4.86 9.47 7.68c.58.71 1.1 1.42 1.56 2.15c.11.18.22.37.33.55c.05.09.1.18.15.28l.11.2"/>
+<path class="tip" d="m392.87 138.62l2.76 3.96l.44-4.81z"/>
+</g>
+<g class="return">
+<path class="shaft" d="m396 168c0 12.5-21.73 23.6-40 25c-18.27 1.4-33.07-6.9-40-14.5c-3.47-3.8-4.97-7.43-6.35-10.1c-.17-.33-.34-.65-.52-.96l-.1-.17"/>
+<path class="tip" d="m309.93 165.88l-4.71-1.09l2.91 3.86z"/>
+</g>
+
+<g class="user">
+<rect x="328" y="232" width="136" height="24"/>
+<text x="396" y="249">extract_given_name</text>
+</g>
+<g class="call">
+<path class="shaft" d="m304 236c6 0 5.07-6.9 12-14.5c6.93-7.6 21.73-15.9 40-14.5c9.13.7 19.13 3.83 26.85 8.34c3.86 2.26 7.15 4.86 9.47 7.68c.58.71 1.1 1.42 1.56 2.15c.11.18.22.37.33.55c.05.09.1.18.15.28l.11.2"/>
+<path class="tip" d="m392.87 226.62l2.76 3.96l.44-4.81z"/>
+</g>
+<g class="return">
+<path class="shaft" d="m396 256c0 12.5-21.73 23.6-40 25c-18.27 1.4-33.07-6.9-40-14.5c-3.47-3.8-4.97-7.42-6.35-10.1c-.17-.33-.34-.65-.52-.96l-.1-.17"/>
+<path class="tip" d="m309.93 253.88l-4.71-1.09l2.91 3.86z"/>
+</g>
+</svg>

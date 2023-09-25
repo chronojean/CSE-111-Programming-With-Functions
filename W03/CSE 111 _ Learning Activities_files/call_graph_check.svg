@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 202">
+<style>
+.bk{fill:#fff}
+.start{stroke-width:2;stroke:#000;fill:none}
+
+.std>rect,.user>rect{stroke-width:1;stroke:#000;rx:4}
+.std>rect{fill:#cfe2fe}
+.user>rect{fill:#fce5cd}
+text{font:13.5px Arial,sans-serif;text-anchor:middle;fill:#000}
+.head{font-weight:bold}
+
+.call,.return{stroke-width:1;stroke:#444}
+.shaft{fill:none}
+.return>.shaft{stroke-dasharray:4 3}
+.tip{fill:#444}
+</style>
+
+<rect class="bk" x="0" y="0" width="380" height="202"/>
+<circle class="start" cx="16" cy="24" r="8"/>
+<text class="head" x="176" y="22">Test Functions</text>
+<text class="head" x="312" y="22">Program Functions</text>
+
+<g class="std">
+<rect x="16" y="56" width="88" height="24"/>
+<text x="60" y="73">pytest.main</text>
+</g>
+<g class="call">
+<path class="shaft" d="m24 24c9 0 18 4 24.75 10c3.38 3 6.19 6.5 8.16 10.25c.98 1.88 1.76 3.81 2.29 5.78l.01.02"/>
+<path class="tip" d="m57.56 50.27l2.24 4.28l1.03-4.72z"/>
+</g>
+
+<g class="user">
+<rect x="136" y="56" width="80" height="24"/>
+<text x="176" y="73">test_prefix</text>
+</g>
+<g class="call">
+<path class="shaft" d="m104 60c8 0 10.13-6.9 16-14.5c5.87-7.6 15.47-15.9 28-14.5c6.27.7 13.27 3.83 18.7 8.34c2.72 2.26 5.04 4.86 6.69 7.68c.41.71.78 1.42 1.1 2.15c.08.18.16.37.23.55c.04.09.07.18.11.28l.04.11"/>
+<path class="tip" d="m173.25 50.42l2.47 4.15l.77-4.77z"/>
+</g>
+
+<g class="user">
+<rect x="136" y="144" width="80" height="24"/>
+<text x="176" y="161">test_suffix</text>
+</g>
+<g class="call">
+<path class="shaft" d="m104 60c18 0 36 10.5 49.5 26.25c6.75 7.88 12.38 17.06 16.31 26.91c1.97 4.92 3.52 10.01 4.57 15.18c.53 2.58.93 5.19 1.2 7.8c.03.33.07.65.1.98l.08.89"/>
+<path class="tip" d="m174.11 138.07l1.83 4.47l1.47-4.6z"/>
+</g>
+
+<g class="user">
+<rect x="288" y="56" width="48" height="24"/>
+<text x="312" y="73">prefix</text>
+</g>
+<g class="call">
+<path class="shaft" d="m216 60c18 0 27.2-6.9 36-14.5c8.8-7.6 17.2-15.9 30-14.5c6.4.7 13.9 3.83 19.8 8.34c2.95 2.26 5.5 4.86 7.31 7.68c.45.71.86 1.42 1.22 2.15c.09.18.17.37.26.55c.04.09.08.18.12.28l.06.13"/>
+<path class="tip" d="m309.15 50.47l2.55 4.1l.68-4.78z"/>
+</g>
+<g class="return">
+<path class="shaft" d="m312 80c0 12.5-17.2 23.6-30 25c-12.8 1.4-21.2-6.9-30-14.5c-4.4-3.8-8.9-7.43-14.55-10.1c-2.83-1.34-5.94-2.44-9.47-3.2c-1.77-.38-3.64-.68-5.63-.89l-.36-.03"/>
+<path class="tip" d="m222.07 74.63l-4.61 1.44l4.46 1.86z"/>
+</g>
+
+<g class="user">
+<rect x="288" y="144" width="48" height="24"/>
+<text x="312" y="161">suffix</text>
+</g>
+<g class="call">
+<path class="shaft" d="m216 148c18 0 27.2-6.9 36-14.5c8.8-7.6 17.2-15.9 30-14.5c6.4.7 13.9 3.82 19.8 8.34c2.95 2.26 5.5 4.86 7.31 7.68c.45.71.86 1.42 1.22 2.15c.09.18.17.37.26.55c.04.09.08.18.12.28l.06.13"/>
+<path class="tip" d="m309.15 138.47l2.55 4.1l.68-4.78z"/>
+</g>
+<g class="return">
+<path class="shaft" d="m312 168c0 12.5-17.2 23.6-30 25c-12.8 1.4-21.2-6.9-30-14.5c-4.4-3.8-8.9-7.43-14.55-10.1c-2.83-1.34-5.94-2.44-9.47-3.2c-1.77-.38-3.64-.68-5.63-.89l-.36-.03"/>
+<path class="tip" d="m222.07 162.63l-4.61 1.44l4.46 1.86z"/>
+</g>
+</svg>
