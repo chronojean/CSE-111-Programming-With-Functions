@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from datetime import datetime
 import math
 import os
@@ -52,7 +51,7 @@ while resp == "Y":
     append_volumes_txt(text_to_append)
     resp = input("Do you want to check more tire volumes? Y/N: ").upper()
 print()
-=======
+
 from datetime import datetime
 import math
 import os
@@ -99,5 +98,3 @@ while resp == "Y":
     append_volumes_txt(text_to_append)
     resp = input("Do you want to check more tire volumes? Y/N: ").upper()
 print()
->>>>>>> 4b556a4 (all)
-good_bye_message()

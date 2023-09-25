@@ -2,7 +2,7 @@ from PIL import Image, ImageTk
 import tkinter as tk
 
 # Cargar la imagen
-imagen = Image.open("my_image.jpg")
+imagen = Image.open("birds_alpha.png")
 
 # Convertir la imagen a mapa de bits
 imagen = imagen.convert("1")
@@ -24,7 +24,7 @@ for y in range(alto):
         pixel = imagen.getpixel((x, y))
         
         # Determinar el color a utilizar en el canvas
-        color = "#000000" if pixel == 0 else "#FFFFFF"
+        color = "#FFFFFF" if pixel == 0 else None
         
         # Pintar el píxel en el canvas
         canvas.create_rectangle(x, y, x+1, y+1, fill=color, outline="")

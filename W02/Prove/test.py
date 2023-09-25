@@ -2,7 +2,7 @@ from PIL import Image, ImageTk
 import tkinter as tk
 
 # Cargar la imagen
-imagen = Image.open("my_image.jpg")
+imagen = Image.open("birds.png")
 
 # Obtener las dimensiones de la imagen
 ancho, alto = imagen.size
