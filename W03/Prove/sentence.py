@@ -1,3 +1,13 @@
+"""
+Exceeding requirements:
+Wrote get_adjective,get_adverb and called them in main to add an adjective and adverb to the sentences produced by my program.
+Q: Does it make sense to call get_adjective in your get_prepositional_phrase function?
+A: Indeed, it makes the phrase better.
+use of randome.choice so the words will be totally random
+multiple use of ternary operators to compress the code:
+by ex: 
+    quantity = 1 if i < 3 else 2 (line 150)#If the program prints mora than 3 phrases quantity = 2 (plural)
+"""
 import random
 
 def get_preposition():
@@ -94,7 +104,7 @@ def get_verb(quantity, tense):
 def get_prepositional_phrase(quantity):
     """Build and return a prepositional phrase composed
     of three words: a preposition, a determiner, and a
-    noun by calling the get_preposition, get_determiner,
+    noun by calling the get_preposition, get_determiner, get_adjective
     and get_noun functions.
 
     Parameter
@@ -104,7 +114,7 @@ def get_prepositional_phrase(quantity):
             be single or pluaral.
     Return: a prepositional phrase.
     """
-    str = f"{get_preposition()} {get_determiner(quantity)} {get_noun(quantity)}"
+    str = f"{get_preposition()} {get_determiner(quantity)} {get_adjective()} {get_noun(quantity)}"
     return str
     
 def get_adverb():
@@ -118,6 +128,17 @@ def get_adverb():
     adverbs = ["quickly", "silently", "carefully", "always", "never", "quite", "easily", "slowly", "well", "badly", "soon", "slowly", "additionally", "subtly", "here", "there", "now", "before", "tomorrow", "late"]
     return random.choice(adverbs)
 
+def get_adjective():
+    """Return a randomly chosen adjective. An adjective is
+    a word like "fast", "slow", "bright", "dark", "delicious", "boring", "interesting".
+
+    Parameter
+        None
+    Return: a randomly chosen adverb.
+    """
+    adjectives = ["red", "happy", "big", "small", "fast", "slow", "bright", "dark", "delicious", "boring", "interesting", "tall", "short", "cold", "hot"]
+    return random.choice(adjectives)
+
 def main():
     tense = ["past","present","future"]
     counter = 0
@@ -127,7 +148,7 @@ def main():
         #     print("Singular:" if counter== 1 else "Plural:")
         # print("\t------",tense[i%3],"------")
         quantity = 1 if i < 3 else 2
-        str = " ".join([get_determiner(quantity),get_noun(quantity),get_prepositional_phrase(random.randint(1,2)),get_verb(quantity,tense[i%3]),get_prepositional_phrase(quantity)])
+        str = " ".join([get_adverb(),get_determiner(quantity),get_noun(quantity),get_prepositional_phrase(random.randint(1,2)),get_verb(quantity,tense[i%3]),get_prepositional_phrase(quantity)])
         print("\t",str.capitalize())
         
 if __name__ == "__main__":    
