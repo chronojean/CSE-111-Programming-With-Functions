@@ -23,7 +23,11 @@ def break_down_formula(str_formula):
     buff = ""
     element = ""
     n_atoms = ""
-    
+	#NaCl
+	#current = C es buff
+	#element "Na"
+	#forumla[i] es stripping_formula[0]
+
     while len(stripping_formula)!=0:
         buff = stripping_formula[0]
         stripping_formula = stripping_formula[1:]
@@ -54,6 +58,9 @@ def print_elements(arr_compound):
         print(f"{_[1]}",end="\t" if len(_[1])>=8 else "\t\t")
         print(f"{_[2]}")
         
+def compute_molar_mass(compound):
+    return sum([ele[0]*ele[2] for ele in compound])
+        
 
 def main():
     clear_cls()
@@ -62,7 +69,7 @@ def main():
     sample_mass = float(input("Type the mass in grams of a sample of the substance (such as 3.71): "))
     compound = break_down_formula(sample_formula)
     print_elements(compound)
-    molar_mass = sum([ele[0]*ele[2] for ele in compound])
+    molar_mass = compute_molar_mass
     print(f"\nMolar mass: {molar_mass}")
     moles = sample_mass/molar_mass
     print(f"Moles: {moles}")
