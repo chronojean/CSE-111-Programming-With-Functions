@@ -1,7 +1,7 @@
-#I created my own split-formula function using make_dict , A print_array function that works accordingly
+#I created my own split-formula function using make_dict , A print_array function that works accordingly showing, elements, number of atmoms, element name, element symbol, element mass and molecule name (if known) in a formmatted way
 #Validated some small answers to help the program work properly
 #Created a dict for known formulas (make_known_molecules)
-#Uncomment line 105 (compound using BYU formula) AND Comment lines 106 Compount and 110 to get normal output and use the given formula
+#Uncomment line 105 (compound using BYU formula) AND Comment lines 106 Compound and 110 to get normal output and use the given formula
 import os, platform, formula
 
 def clear_cls():
