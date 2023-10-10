@@ -12,7 +12,8 @@ def read_dictionary(filename, key_column_index):
         """
 
 def main():
-    with open("students.csv") as my_file:
+    with open("students.csv","rt") as my_file:
+        print(my_file.readline())
         print(my_file.read())
 
 if __name__ == "__main__":
