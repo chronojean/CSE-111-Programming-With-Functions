@@ -1,0 +1,29 @@
+Título del Programa: Registro de Finanzas Diarias
+
+Descripción del Programa:
+Crearé una aplicación que permita a los usuarios llevar un registro diario de sus entradas y salidas de dinero. Esto ayudará a las personas a realizar un seguimiento de sus gastos e ingresos de manera efectiva. La aplicación permitirá a los usuarios agregar transacciones, especificar la cantidad, la categoría y una breve descripción. También podrán ver un resumen de sus transacciones diarias, semanales y mensuales, lo que les ayudará a comprender mejor su situación financiera.
+
+Objetivos de Aprendizaje:
+1. Aprender a trabajar con listas y diccionarios en Python para almacenar datos financieros.
+2. Desarrollar habilidades en la creación y llamada de funciones en Python.
+3. Practicar la organización de datos y la presentación de información de manera clara y concisa.
+
+Módulos Utilizados:
+Utilizaré los siguientes módulos de Python:
+1. "datetime" para registrar la fecha de cada transacción.
+2. "tkinter" para crear una interfaz de usuario gráfica.
+3. "number_entry" para permitir al usuario ingresar cantidades numéricas de manera eficiente.
+
+Nombres de Funciones:
+1. "agregar_transaccion": Esta función permitirá al usuario agregar una nueva transacción con detalles como la cantidad, la categoría y la descripción.
+2. "calcular_resumen_diario": Calculará y mostrará el resumen de las transacciones del día.
+3. "calcular_resumen_semanal": Calculará y mostrará el resumen semanal de las transacciones.
+4. "calcular_resumen_mensual": Calculará y mostrará el resumen mensual de las transacciones.
+
+Nombres de Funciones de Prueba:
+1. "test_agregar_transaccion": Probará la función de agregar transacciones.
+2. "test_calcular_resumen_diario": Verificará si la función de resumen diario funciona correctamente.
+3. "test_calcular_resumen_semanal": Asegurará que la función de resumen semanal produce resultados precisos.
+4. "test_calcular_resumen_mensual": Confirmará que la función de resumen mensual está calculando correctamente.
+
+Esto está sujeto a cambios, por lo que los nombres finales de las funciones podrían variar al igual que las funciones usadas y otros elementos del programa.
