@@ -2,16 +2,22 @@ import tkinter as tk
 from tkinter import ttk
 
 def create_grid(data):
+    # Colores de la paleta
+    color_bg = '#2e453b'  # Color de fondo de la ventana (bg-200)
+    color_text = '#FFFFFF'  # Color del texto de los labels (text-100)
+    color_label_bg = '#465f54'  # Color de fondo de los labels (bg-300)
+    
     # Crear ventana principal
     root = tk.Tk()
     root.title("Grid con Scrollbar")
+    root.configure(bg=color_bg)
     
     # Crear un frame contenedor para la cuadrícula
-    frame = ttk.Frame(root)
+    frame = tk.Frame(root)
     frame.pack(fill='both', expand=True)
     
     # Crear un canvas
-    canvas = tk.Canvas(frame)
+    canvas = tk.Canvas(frame, bg=color_bg)
     canvas.pack(side='left', fill='both', expand=True)
     
     # Agregar una barra de desplazamiento vertical
@@ -23,13 +29,13 @@ def create_grid(data):
     canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox('all')))
     
     # Crear otro frame dentro del canvas para colocar la cuadrícula
-    inner_frame = ttk.Frame(canvas)
+    inner_frame = tk.Frame(canvas, bg=color_bg)
     canvas.create_window((0, 0), window=inner_frame, anchor='nw')
-    
+
     # Crear la cuadrícula usando labels
     for i, row in enumerate(data):
         for j, value in enumerate(row):
-            label = ttk.Label(inner_frame, text=value, width=10, relief='ridge')
+            label = ttk.Label(inner_frame, text=value, width=10, relief='solid', background=color_label_bg, foreground=color_text)
             label.grid(row=i, column=j, padx=5, pady=5)
     
     # Configurar el tamaño de la ventana principal
