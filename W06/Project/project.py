@@ -32,19 +32,53 @@ def es_numero(valor):
     except ValueError:
         return False
 def create_form(frame):
-    frame_save_income_outcome = Frame(frame, relief="flat", borderwidth=1)
-    frame_save_income_outcome.pack()
-    
-    frame_row = Frame(frame_save_income_outcome)  # Frame adicional para alinear elementos en la misma fila
+    def imprimir_seleccion():
+        seleccion = combo.get()
+        print("Opción seleccionada: " + seleccion)
+        
+    frame_save_income_outcome = Frame(frame, relief="flat", borderwidth=1,background=frame_background)
+    frame_save_income_outcome.pack(padx=0, pady=2, fill=tk.BOTH, expand=1)
+
+    # Crear un Frame adicional para organizar los elementos en la misma fila
+    frame_row = Frame(frame_save_income_outcome,relief="flat")
     frame_row.pack()
-    
-    lbl_save_income_outcome = Label(frame_row, text="Amount: ")
+
+    lbl_save_income_outcome = Label(frame_row, text="Amount: ",background=frame_background,fg=lbl_item_color,font=lbl_item_font,relief="flat")
     lbl_save_income_outcome.pack(side="left")  # Alinea la etiqueta a la izquierda
-    
-    entry_amount = Entry(frame_row,width=12)
+
+    entry_amount = Entry(frame_row, width=12)
     entry_amount.pack(side="left")  # Alinea la caja de texto a la izquierda
+
+    # lbl_of = Label(frame_row, text=" of ",fg=lbl_item_color,font=lbl_item_font,relief="flat")
+    # lbl_of.pack(side="left")  # Alinea la etiqueta "of" a la izquierda
+
+    # Definir opciones para el ComboBox
+    opciones = ["Income", "Outcome"]
+
+    # Calcular el ancho necesario para acomodar la opción más larga
+    ancho_maximo = max(map(lambda x: len(x), opciones))
+    # Configurar un nuevo estilo para el ComboBox
+    combostyle = ttk.Style()
+    combostyle.theme_create('combostyle', parent='alt',
+                            settings = {'TCombobox':
+                                        {'configure':
+                                        {'selectbackground': 'BLACK',
+                                         'selectedforeground': 'RED',
+                                        'fieldbackground': 'WHITE',
+                                        'background': 'BROWN1'
+                                        }}}
+                            )
+    combostyle.theme_use('combostyle')
+    # Crear un ComboBox con las opciones
+    combo = ttk.Combobox(frame_row, values=opciones, state="readonly")
+    combo.set(opciones[0])  # Establecer la opción predeterminada
+    combo.config(width=ancho_maximo + 2)  # Establecer el ancho para ajustarse a la opción más larga
+    combo.pack(side="left")  # Alinea el ComboBox a la izquierda
+
+    # Crear un botón para imprimir la selección en la terminal
+    boton_imprimir = tk.Button(frame_save_income_outcome, text="Imprimir selección", command=imprimir_seleccion)
+    boton_imprimir.pack(side="left")  # Alinea el botón a la izquierda
     
-    lbl_of = Label(fram)
 
 
 
@@ -90,8 +124,8 @@ def main():
     body.pack(padx=0, pady=2, fill=tk.BOTH, expand=1)
 
     #Create the structure of the frame
-    create_form(ventana)
-    create_grid(body,history)
+    create_form(body)
+    #create_grid(body,history)
 
     ventana.mainloop()
 

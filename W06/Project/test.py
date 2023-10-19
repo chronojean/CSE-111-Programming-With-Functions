@@ -1,55 +1,50 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import font as tkFont
 
-# Función para mostrar la selección en una etiqueta
-def seleccionar_opcion():
-    seleccion = combo.get()
-    label.config(text="Opción seleccionada: " + seleccion)
-
-# Función para imprimir la selección en la terminal
-def imprimir_seleccion():
-    seleccion = combo.get()
-    print("Opción seleccionada: " + seleccion)
-
-# Crear una ventana principal
+# Crear la ventana principal
 ventana = tk.Tk()
-ventana.title("Ejemplo de ComboBox")
+ventana.title("Grid con Scrollbar")
 
-# Configurar un nuevo estilo para el ComboBox
-combostyle = ttk.Style()
-combostyle.theme_create('combostyle', parent='alt',
-                         settings = {'TCombobox':
-                                     {'configure':
-                                      {'selectbackground': 'BLUE',
-                                       'fieldbackground': 'WHITE',
-                                       'background': 'CYAN'
-                                       }}}
-                         )
-combostyle.theme_use('combostyle')
+# Crear un marco
+marco = tk.Frame(ventana)
+marco.pack(fill="both", expand=True)
 
-# Crear una etiqueta para instrucciones
-label = tk.Label(ventana, text="Selecciona una opción:")
-label.pack(pady=10)
+# Crear una barra de desplazamiento vertical
+scrollbar = ttk.Scrollbar(marco, orient="vertical")
 
-# Definir opciones, incluyendo una opción muy larga
-opciones = ["Opción 1", "Opción 2", "Opción 3", "Opción muy larga que debería ajustar el ancho del ComboBox"]
+# Crear una cuadrícula dentro del marco
+cuadricula = ttk.Treeview(marco, yscrollcommand=scrollbar.set)
 
-# Calcular el ancho necesario para acomodar la opción más larga
-ancho_maximo = max(map(lambda x: len(x), opciones))
+# Define las columnas en base a la cantidad de columnas en tu matriz
+columnas = ["Columna 1", "Columna 2"]
+cuadricula["columns"] = columnas
 
-# Crear un ComboBox con las opciones
-combo = ttk.Combobox(ventana, values=opciones, state="readonly")
-combo.set("Opción 1")  # Establecer la opción predeterminada
-combo.config(width=ancho_maximo + 2)  # Establecer el ancho para ajustarse a la opción más larga
-combo.pack()
+for col in columnas:
+    cuadricula.heading(col, text=col)
 
-# Crear un botón para mostrar la selección en una etiqueta
-boton_mostrar = tk.Button(ventana, text="Mostrar selección", command=seleccionar_opcion)
-boton_mostrar.pack()
+# Configurar la barra de desplazamiento
+scrollbar.config(command=cuadricula.yview)
 
-# Crear un botón para imprimir la selección en la terminal
-boton_imprimir = tk.Button(ventana, text="Imprimir selección", command=imprimir_seleccion)
-boton_imprimir.pack()
+# Agregar los datos del array bidimensional a la cuadrícula
+data = [
+    ["Dato 1-1", "Dato 1-2"],
+    ["Dato 2-1", "Dato 2-2"],
+    ["Dato 3-1", "Dato 3-2"],
+    # Agrega más filas según tu array
+]
 
-# Iniciar el bucle principal de la ventana
+# Insertar los datos en la cuadrícula y ajustar el ancho de las columnas automáticamente
+for row in data:
+    cuadricula.insert("", "end", values=(row[0], row[1]))
+    for i, col in enumerate(columnas):
+        col_width = tkFont.nametofont("TkDefaultFont").measure(row[i])
+        if cuadricula.column(col, option="width") < col_width:
+            cuadricula.column(col, width=col_width)
+
+# Empacar la cuadrícula y la barra de desplazamiento en el marco
+cuadricula.pack(side="left", fill="both", expand=True)
+scrollbar.pack(side="right", fill="y")
+
+# Iniciar la aplicación
 ventana.mainloop()
