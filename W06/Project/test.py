@@ -1,16 +1,15 @@
 import tkinter as tk
-from tkinter import messagebox
 
-def show_alert():
-    messagebox.showinfo("Alert", "This is an alert message!")
+def create_modal_window():
+    modal_window = tk.Toplevel()
+    modal_window.attributes('-topmost', True)
+    modal_window.geometry('200x100+1000+700')  # Ajusta las dimensiones y la posición
+    modal_window.overrideredirect(True)  # Quita la decoración de ventana
+    label = tk.Label(modal_window, text="Ventana modal")
+    label.pack()
 
-# Create the main window
-window = tk.Tk()
-window.title("Python Tkinter Alert")
-
-# Create a button to trigger the alert
-button = tk.Button(window, text="Show Alert", command=show_alert)
+root = tk.Tk()
+button = tk.Button(root, text="Abrir ventana modal", command=create_modal_window)
 button.pack()
 
-# Start the main loop
-window.mainloop()
+root.mainloop()
