@@ -1,50 +1,54 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import font as tkFont
 
-# Crear la ventana principal
-ventana = tk.Tk()
-ventana.title("Grid con Scrollbar")
+def create_grid(data):
+    # Crear ventana principal
+    root = tk.Tk()
+    root.title("Grid con Scrollbar")
+    
+    # Crear un frame contenedor para la cuadrícula
+    frame = ttk.Frame(root)
+    frame.pack(fill='both', expand=True)
+    
+    # Crear un canvas
+    canvas = tk.Canvas(frame)
+    canvas.pack(side='left', fill='both', expand=True)
+    
+    # Agregar una barra de desplazamiento vertical
+    scrollbar = ttk.Scrollbar(frame, orient='vertical', command=canvas.yview)
+    scrollbar.pack(side='right', fill='y')
+    
+    # Configurar el canvas para que se desplace con la barra de desplazamiento
+    canvas.configure(yscrollcommand=scrollbar.set)
+    canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox('all')))
+    
+    # Crear otro frame dentro del canvas para colocar la cuadrícula
+    inner_frame = ttk.Frame(canvas)
+    canvas.create_window((0, 0), window=inner_frame, anchor='nw')
+    
+    # Crear la cuadrícula usando labels
+    for i, row in enumerate(data):
+        for j, value in enumerate(row):
+            label = ttk.Label(inner_frame, text=value, width=10, relief='ridge')
+            label.grid(row=i, column=j, padx=5, pady=5)
+    
+    # Configurar el tamaño de la ventana principal
+    root.geometry("400x300")
+    
+    # Ejecutar el bucle principal de la ventana
+    root.mainloop()
 
-# Crear un marco
-marco = tk.Frame(ventana)
-marco.pack(fill="both", expand=True)
-
-# Crear una barra de desplazamiento vertical
-scrollbar = ttk.Scrollbar(marco, orient="vertical")
-
-# Crear una cuadrícula dentro del marco
-cuadricula = ttk.Treeview(marco, yscrollcommand=scrollbar.set)
-
-# Define las columnas en base a la cantidad de columnas en tu matriz
-columnas = ["Columna 1", "Columna 2"]
-cuadricula["columns"] = columnas
-
-for col in columnas:
-    cuadricula.heading(col, text=col)
-
-# Configurar la barra de desplazamiento
-scrollbar.config(command=cuadricula.yview)
-
-# Agregar los datos del array bidimensional a la cuadrícula
+# Ejemplo de data en una lista bidimensional
 data = [
-    ["Dato 1-1", "Dato 1-2"],
-    ["Dato 2-1", "Dato 2-2"],
-    ["Dato 3-1", "Dato 3-2"],
-    # Agrega más filas según tu array
+    ["Dato 1", "Dato 2", "Dato 3"],
+    ["Dato 4", "Dato 5", "Dato 6"],
+    ["Dato 7", "Dato 8", "Dato 9"],
+    ["Dato 10", "Dato 11", "Dato 12"],
+    ["Dato 13", "Dato 14", "Dato 15"],
+    ["Dato 16", "Dato 17", "Dato 18"],
+    ["Dato 19", "Dato 20", "Dato 21"],
+    # Agrega más filas si es necesario
 ]
 
-# Insertar los datos en la cuadrícula y ajustar el ancho de las columnas automáticamente
-for row in data:
-    cuadricula.insert("", "end", values=(row[0], row[1]))
-    for i, col in enumerate(columnas):
-        col_width = tkFont.nametofont("TkDefaultFont").measure(row[i])
-        if cuadricula.column(col, option="width") < col_width:
-            cuadricula.column(col, width=col_width)
-
-# Empacar la cuadrícula y la barra de desplazamiento en el marco
-cuadricula.pack(side="left", fill="both", expand=True)
-scrollbar.pack(side="right", fill="y")
-
-# Iniciar la aplicación
-ventana.mainloop()
+# Llamar a la función para crear la cuadrícula
+create_grid(data)
