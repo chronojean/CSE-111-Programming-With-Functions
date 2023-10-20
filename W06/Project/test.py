@@ -1,25 +1,18 @@
-import tkinter as tk
+from screeninfo import get_monitors
 
-def create_modal_window():
-    modal_window = tk.Toplevel()
-    modal_window.attributes('-topmost', True)
-    modal_window.geometry('200x100+1000+700')
-    modal_window.overrideredirect(True)
-    label = tk.Label(modal_window, text="Ventana modal")
-    label.pack()
+def obtener_resolucion_monitor_actual():
+    # Obtiene una lista de todos los monitores conectados
+    monitores = get_monitors()
 
-    # Función para cerrar la ventana modal al hacer clic
-    def close_modal_window(event):
-        modal_window.destroy()
+    if monitores:
+        # El primer monitor en la lista es el monitor principal
+        monitor_principal = monitores[0]
+        ancho = monitor_principal.width
+        alto = monitor_principal.height
+        return f"Resolución actual del monitor: {ancho}x{alto}"
+    else:
+        return "No se encontraron monitores."
 
-    # Configurar el enlace de clic para cerrar la ventana modal
-    label.bind("<Button-1>", close_modal_window)
-
-    # Programar el cierre automático después de 3 segundos
-    modal_window.after(3000, lambda: close_modal_window(None))
-
-root = tk.Tk()
-button = tk.Button(root, text="Abrir ventana modal", command=create_modal_window)
-button.pack()
-
-root.mainloop()
+if __name__ == "__main__":
+    resolucion = obtener_resolucion_monitor_actual()
+    print(resolucion)
