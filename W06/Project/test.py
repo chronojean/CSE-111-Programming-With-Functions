@@ -9,7 +9,7 @@ def obtener_resolucion_monitor_actual():
         monitor_principal = monitores[0]
         ancho = monitor_principal.width
         alto = monitor_principal.height
-        return f"Resolución actual del monitor: {ancho}x{alto}"
+        return [ancho,alto]
     else:
         return "No se encontraron monitores."
 
