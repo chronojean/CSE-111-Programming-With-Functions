@@ -39,12 +39,12 @@ def create_form(ventana):
     section0 = ventana.children.get("section0")
     
     lbl_amount = Label(section0, text="Amount: ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
-    entry_amount = Entry(section0,width=12)    
+    entry_amount = Entry(section0,width=12,name="entry_amount")    
     lbl_of = Label(section0, text=" of ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_main"])
     income_outcome = ttk.Combobox(section0, values=["Income", "Outcome"],font=palette["font_1"],state="readonly")
     income_outcome["width"] = max(len(option) for option in income_outcome["values"])+2
     income_outcome.set("Income")
-    btn_save_income_outcome = Button(section0, text="Save",relief="solid",background=palette["bg_2"],fg=palette["font_color_main"],font=palette["font_1"],command=lambda: append_to_file(ventana,entry_amount.get(),income_outcome.get()))
+    btn_save_income_outcome = Button(section0, text="Save",relief="solid",background=palette["bg_2"],fg=palette["font_color_main"],font=palette["font_1"],command=lambda: save_income_outcome(ventana,entry_amount.get(),income_outcome.get()))
     
     lbl_amount.pack(side=tk.LEFT)
     entry_amount.pack(side=tk.LEFT)
@@ -52,17 +52,17 @@ def create_form(ventana):
     income_outcome.pack(side=tk.LEFT)
     btn_save_income_outcome.pack(side=tk.LEFT)
 
-def append_to_file(ventana,amount,income_outcome):
+def save_income_outcome(ventana,amount,income_outcome):
     try:
         monto=float(amount)
-        create_modal_window("Se ha guardado")
+        create_modal_window(f"{income_outcome} saved.")
         try:
-            ventana.children.get("section1").destroy()
-            create_section1(ventana)
+            ventana.children.get("section0").children.get("entry_amount").delete(0,tk.END)
+            reset_grid(ventana)
         except:
             None
     except:
-        create_modal_window("Please enter a valid number. Use a period (.) as the thousands separator and a comma (,) as the decimal separator.")    
+        create_modal_window("Please enter a valid number. Use a period (.) as the thousands separator and a comma (,) as the decimal separator.")   
 
 def create_modal_window(message):
     modal_window = tk.Toplevel()
@@ -76,15 +76,17 @@ def create_modal_window(message):
         justify="left",
         wraplength=800,
         padx=10,
-        pady=10,
+        pady=5,
+        relief="solid",
+        border=3
     )
     label.pack()
     def close_modal_window(event):
         modal_window.destroy()
     modal_window.bind("<Button-1>", close_modal_window)
-    print(f'{label.winfo_reqwidth()}x{label.winfo_reqheight()}')
+    #print(f'{label.winfo_reqwidth()}x{label.winfo_reqheight()}')
     resolution= obtener_resolucion_monitor_actual()
-    print(resolution)
+    #print(resolution)
     modal_window.geometry(f'{label.winfo_reqwidth()}x{label.winfo_reqheight()}+{resolution[0]-label.winfo_reqwidth()}+{resolution[1]-label.winfo_reqheight()}')
     modal_window.after(5000, lambda: close_modal_window(None))
 
@@ -120,6 +122,10 @@ def create_grid(ventana,data):
     for j in range(len(data[0])):
         frame.grid_columnconfigure(j, weight=1)
 
+def reset_grid(ventana):
+    ventana.children.get("section1").destroy()
+    create_section1(ventana)
+
 def load_history(filename):
     try:
         arr = []
@@ -134,7 +140,7 @@ def load_history(filename):
                 arr.append(row)
         return arr
     except (FileNotFoundError,PermissionError):
-        print("Couldn't open the history file")
+        #print("Couldn't open the history file")
         sys.exit(0)
          
 def es_numero(valor):
