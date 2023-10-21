@@ -41,7 +41,7 @@ def create_form(ventana):
     lbl_amount = Label(section0, text="Amount: ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     entry_amount = Entry(section0,width=12,name="entry_amount")    
     lbl_of = Label(section0, text=" of ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_main"])
-    income_outcome = ttk.Combobox(section0, values=["Income", "Outcome"],font=palette["font_1"],state="readonly")
+    income_outcome = ttk.Combobox(section0, values=["Income", "Outcome"],font=palette["font_1"])
     income_outcome["width"] = max(len(option) for option in income_outcome["values"])+2
     income_outcome.set("Income")
     btn_save_income_outcome = Button(section0, text="Save",relief="solid",background=palette["bg_2"],fg=palette["font_color_main"],font=palette["font_1"],command=lambda: save_income_outcome(ventana,entry_amount.get(),income_outcome.get()))
