@@ -1,8 +1,10 @@
 import tkinter as tk
+import calendar
+import sys
 from screeninfo import get_monitors
 from tkinter import Frame, Label, Button,ttk,Entry
 from number_entry import IntEntry
-import sys
+from datetime import datetime
 
 palette = {
     "bg_main": "#002400",               #Main Background Color
@@ -41,7 +43,7 @@ def create_form(ventana):
     lbl_amount = Label(section0, text="Amount: ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     entry_amount = Entry(section0,width=12,name="entry_amount")    
     lbl_of = Label(section0, text=" of ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_main"])
-    income_outcome = ttk.Combobox(section0, values=["Income", "Outcome"],font=palette["font_1"])
+    income_outcome = ttk.Combobox(section0, values=["Income", "Outcome"],font=palette["font_1"],state="readonly")
     income_outcome["width"] = max(len(option) for option in income_outcome["values"])+2
     income_outcome.set("Income")
     btn_save_income_outcome = Button(section0, text="Save",relief="solid",background=palette["bg_2"],fg=palette["font_color_main"],font=palette["font_1"],command=lambda: save_income_outcome(ventana,entry_amount.get(),income_outcome.get()))
@@ -54,7 +56,8 @@ def create_form(ventana):
 
 def save_income_outcome(ventana,amount,income_outcome):
     try:
-        monto=float(amount)
+        monto=round(float(amount),0)
+        str = f"{datetime.now(tz='America/Caracas')}"
         create_modal_window(f"{income_outcome} saved.")
         try:
             ventana.children.get("section0").children.get("entry_amount").delete(0,tk.END)
@@ -97,7 +100,7 @@ def create_section1(ventana):
 
 def create_grid(ventana,data):
     frame = ventana.children.get("section1")
-    rows_to_display = 50
+    rows_to_display = 25
     for i, row in enumerate(data if len(data)<=rows_to_display else data[-rows_to_display:]):
         for j, item in enumerate(row):
             if j==2 and es_numero(item) and float(item)>0:
@@ -111,7 +114,7 @@ def create_grid(ventana,data):
                 label = Label(frame, text=f'{item:,}', anchor="e",justify="left",background=palette["bg_1"],font=palette["font_main"],fg=palette["font_color_main"])
                 label.grid(row=i, column=j+1, padx=palette["pad_1"], pady=0, sticky="nsew")
             else:
-                label = Label(frame, text=item, anchor="e",justify="left",background=palette["bg_1"],font=palette["font_main"],fg=palette["font_color_main"])
+                label = Label(frame, text=date_short_day(item) if j==0 else item, anchor="w",justify="left",background=palette["bg_1"],font=palette["font_main"],fg=palette["font_color_main"])
                 label.grid(row=i, column=j, padx=palette["pad_1"], pady=0, sticky="nsew")
     label = Label(frame,text="Current Money: ",background=palette["bg_main"],fg="White",relief="sunken",font=palette["font_2"])
     label.grid(row=i+1,columnspan=2,sticky="nsew")
@@ -149,6 +152,17 @@ def es_numero(valor):
         return True
     except ValueError:
         return False
+def date_short_day(given_date):
+    # Convertir la fecha del archivo a un objeto datetime
+    fecha_objeto = datetime.strptime(given_date, "%Y/%m/%d")
+
+    # Obtener el nombre abreviado del día de la semana usando la clase calendar
+    nombre_dia_abreviado = calendar.day_abbr[fecha_objeto.weekday()]
+
+    # Formatear la fecha con el nombre abreviado del día de la semana
+    fecha_formateada = f"{fecha_objeto.strftime('%Y/%m/%d')} {nombre_dia_abreviado}"
+
+    return fecha_formateada
 
 def obtener_resolucion_monitor_actual():
     # Obtiene una lista de todos los monitores conectados

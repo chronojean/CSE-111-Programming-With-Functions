@@ -1,43 +1,38 @@
-import tkinter as tk
+try:
+    import tkinter as tk
+    from tkinter import ttk
+except ImportError:
+    import Tkinter as tk
+    import ttk
 
-class RoundedLabel(tk.Canvas):
-    def __init__(self, master=None, radius=10, **kwargs):
-        super().__init__(master, **kwargs)
-        self.radius = radius
-        self.config(bg=kwargs.get('bg', 'white'))
+from tkcalendar import Calendar, DateEntry
 
-    def create_rounded_rectangle(self, x1, y1, x2, y2, **kwargs):
-        self.create_arc(x1, y1, x1 + 2 * self.radius, y1 + 2 * self.radius, start=90, extent=90, **kwargs)
-        self.create_arc(x2 - 2 * self.radius, y1, x2, y1 + 2 * self.radius, start=0, extent=90, **kwargs)
-        self.create_arc(x1, y2 - 2 * self.radius, x1 + 2 * self.radius, y2, start=180, extent=90, **kwargs)
-        self.create_arc(x2 - 2 * self.radius, y2 - 2 * self.radius, x2, y2, start=270, extent=90, **kwargs)
-        self.create_rectangle(x1 + self.radius, y1, x2 - self.radius, y2, **kwargs)
-        self.create_rectangle(x1, y1 + self.radius, x2, y2 - self.radius, **kwargs)
+def example1():
+    def print_sel():
+        print(cal.selection_get())
 
-def create_modal_window(message):
-    modal_window = tk.Toplevel()
-    modal_window.overrideredirect(True)
-    
-    label = RoundedLabel(
-        modal_window,
-        radius=10,  # Adjust the radius as needed
-        bg="#337a2c",
-        width=400,  # Adjust the width
-        height=200  # Adjust the height
-    )
-    label.pack()
+    top = tk.Toplevel(root)
 
-    text = tk.Label(
-        label,
-        text=message,
-        background="#337a2c",
-        fg="white",
-        font=("Calibri", 16, "bold"),
-        justify="left",
-        wraplength=380,  # Adjust the wraplength
-        padx=10,
-        pady=10
-    )
-    text.pack()
+    cal = Calendar(top,
+                   font="Arial 14", selectmode='day',
+                   cursor="hand1", year=2018, month=2, day=5)
+    cal.pack(fill="both", expand=True)
+    ttk.Button(top, text="ok", command=print_sel).pack()
 
-create_modal_window("This is a rounded label just like 'border-radius' in CSS")
+def example2():
+    top = tk.Toplevel(root)
+
+    ttk.Label(top, text='Choose date').pack(padx=10, pady=10)
+
+    cal = DateEntry(top, width=12, background='darkblue',
+                    foreground='white', borderwidth=2,state="readonly")
+    cal.pack(padx=10, pady=10)
+
+root = tk.Tk()
+s = ttk.Style(root)
+s.theme_use('clam')
+
+ttk.Button(root, text='Calendar', command=example1).pack(padx=10, pady=10)
+ttk.Button(root, text='DateEntry', command=example2).pack(padx=10, pady=10)
+
+root.mainloop()
