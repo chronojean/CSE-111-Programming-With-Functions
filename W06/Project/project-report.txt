@@ -1,0 +1,101 @@
+Second Report for a Student Chosen Project
+
+Do the following:
+
+1. In the table below, list the dates, amount of time spent, and
+description of the work that you did on your project. Follow the example
+that is in the first row of the table below. Include the time you spent
+doing any of the following:
+    a. discussing your project with your teacher, tutor, or fellow students
+    b. researching by reading articles and watching applicable videos
+    c. designing your project by drawing diagrams and other applicable documents
+    d. writing experimental code
+    d. writing code for your project
+    e. writing test functions
+    f. debugging your code
+    g. any other activity that helped you complete your project
+
+=============Discussing project====================
+Teacher and Grader: just a couple of minutes, wrote the mail to the teacher and the grader approved it.
+Fellow Students: near to 10%-20% of the time invested was sharing and helping my fellow mates with shared topics.
+
+
+=============Hours====================
+            Time Spent
+   Date       (hours)   Description of Work
+----------  ----------  -------------------------
+2023-10-18      -      starting this day until...
+2023-10-25      40      I've spent near to 6 hours daily in order to learn to do all stuff, Some of the time were used by me to help some mates with the understanding of shared topics
+This includes, resarch in websites, selfmade test examples to check if they worked, 1 single video from youtube to learn how to create a scrollbar(none of the code that I've found was readable to me, so I had to watch this video, the only one that worked for me)
+and incorporating those test codes to my project, while doing this, test files were written over 10 times or more before any commit.
+Commits made in test file can be accesed via my github: https://github.com/chronojean/CSE-111-Programming-With-Functions/tree/main/W06/Project
+Feel free to check the commits of the whole files but "project.py" because that one was commited only when a feature was added.
+Sadly, I din't register what I did every day the time that I invested in reading (some hours), coding(some hours), thinking(some hours), rewriting code(some hours), etc., however, the code in the .py is almost created chronologically from top to bottom.
+and is worth saying that I invested tons of time in this, the result, a clean UI that resizes, works and handle every error I could think, etc.
+Just give it a try. Works perfect for the purpose it was made.
+By the way, messages for the user are showd via modal window, selfs close at 5 secs, or is closed when clicked.
+
+=============Research made====================
+Sadly I can't track the whole websites I've researched, but here's a small list of the ones used the las 3 days
+0. https://www.youtube.com/watch?v=VmlgrrXAqb4
+1. https://stackoverflow.com/questions/1485408/how-to-pack-a-tkinter-widget-underneath-an-existing-widget-that-has-been-packed
+2. https://stackoverflow.com/questions/62029097/make-tkinter-combobox-scrollbar-and-arrow-buttons-bigger
+3. https://stackoverflow.com/questions/4443786/how-do-i-create-a-date-picker-in-tkinter
+4. https://www.geeksforgeeks.org/create-a-date-picker-calendar-tkinter/
+5. https://devhints.io/datetime
+6. https://gridbyexample.com/examples/
+7. https://victomanolo.wordpress.com/eventos-en-python/
+8. https://platform.openai.com/docs/guides/images/language-specific-tips?context=python
+9. https://stackoverflow.com/questions/4241036/how-do-i-center-a-frame-within-a-frame-in-tkinter
+10. https://www.plus2net.com/python/tkinter-colors.php
+11. http://www.java2s.com/Code/Python/GUI-Tk/LabelborderRAISEDSUNKENFLATRIDGEGROOVESOLID.htm
+12. https://stackoverflow.com/questions/16373887/how-to-set-the-text-value-content-of-an-entry-widget-using-a-button-in-tkinter
+13. https://stackoverflow.com/questions/1823058/how-to-print-a-number-using-commas-as-thousands-separators
+14. https://stackoverflow.com/questions/8959815/restricting-the-value-in-tkinter-entry-widget
+15. https://www.programiz.com/python-programming/online-compiler/
+16. https://stackoverflow.com/questions/36059365/python-tkinter-canvas-not-resizing
+17. https://stackoverflow.com/questions/22835289/how-to-get-tkinter-canvas-to-dynamically-resize-to-window-width
+18. https://devpress.csdn.net/python/630451ac7e66823466199b3f.html
+20. https://www.quora.com/How-do-you-make-your-Python-tkinter-app-fit-any-screen-resizing-a-canvas-that-contains-a-bunch-of-widgets-and-a-window-with-a-lot-of-canvases
+21. https://www.reddit.com/r/learnpython/comments/owdxk1/resizing_a_tkinter_canvas_to_show_the_entire/
+22. https://copyprogramming.com/howto/python-get-canvas-to-fit-windo-size-tkinter#how-to-to-resize-canvas-objects-to-window-size-in-tkinter-without-using-object-oriented-programming
+23. https://stackoverflow.com/questions/69615326/how-to-resize-the-width-of-the-canvas-dynamically
+
+
+=============Diagrams Used====================
+None, I can follow the workflow, and callflow without them
+
+=============Experimental Code====================
+Can be found at https://github.com/chronojean/CSE-111-Programming-With-Functions/tree/main/W06/Project
+you can check the commits, I've coded those file and changed them and re-write them from 2 to 10 times each, before each commit.
+Those experimental codes are all the .py except project.py test_project.py
+
+
+=============Debugging my code====================
+I've spent a lot of time debugging, specially when the UI wasn't working as intended, by ex: .pack() wasn't aligning items properly, it was later after a lot of research and effort that I throwed the idea of using .pack and switched to .grid() works like charm.
+Beside that, I've spent some important time of each session to handle minor errors that prevent the program to work properly, by ex:
+the idea of a proccess was good, the calls and paramaters of the functions were good also, but how to handle the ui, by ex: make the canvas
+fit window, make the label to resize canvas, etc. was a time-eater task.
+
+
+=============Any Other activity====================
+Actually a fellow student used a grid and was able to incorporate a scrollbar, I helped him to understand some stuff, but then I needed to
+incorporatea scrollbar in my own grid, and asked for his help, he helped me and I understood how to, and after finishing the project, I've spent some extra time in order to make "prettier" my scrollbar, scroll speed and repetition, etc. I'm very satisfied with the result.
+
+=============Extras====================
+My code start as an empty finance app, you can save whatever income/outome you wan't, you don't have to save them chronologically, by ex:
+if you registered your 2 incomes of today (salary+bonus), but you remember that someone gave you a present of $100 because of your birthday
+those $100 can be saved 3rd, but will be displayed properly in the report of transactions. Then, if you wan't to register and outcome from yesterday, then you register your 2 outcomes of today (lunch, IceCream), and you remember that you forgot to register your tithing, nothing wrong happen, the program handles all of that.
+
+If you're spending more than you're earning, programm will warn you with a red highlight in the proper summary.
+
+Current Money: The real money you have in your hand (asumming every income and outcome had been registered)
+daily summary: Incomes, outcomes and balance of today (today you earned 0, but spend 10, your balance is -10)
+weekly summary: Incomes, outcomes and balance of the last 7 days (you earned 100, but spend 100, your balance is -90)
+monthly summary: Incomes, outcomes and balance of the last 30 days (you earned 2110, but spend 110, your balance is 2000)
+This will help track expenses, and see if a day, week, month has been productive or you're in deficit.
+=============Extras====================
+
+2. In I-Learn, submit this completed text file, your Python program, your
+Python test file, and any project data files such as .txt and .csv files and
+link to video walkthrough if needed.

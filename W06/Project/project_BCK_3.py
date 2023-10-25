@@ -167,7 +167,7 @@ def create_summary(ventana):
     lbl_summary_title_outcome = Label(section2, text="Outcome",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     lbl_summary_title_balance = Label(section2, text="Balance",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     
-    inc_out = get_last_n_days_values(data,0)
+    inc_out = get_last_n_days_values(data,1)
     lbl_summary_daily_type = Label(section2, text="Daily Summary",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"],anchor="w", justify="left")
     lbl_summary_daily_income = Label(section2, text=f"{inc_out['income']:,.2f}",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
     lbl_summary_daily_outcome = Label(section2, text=f"{inc_out['outcome']:,.2f}",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
@@ -255,10 +255,9 @@ def date_short_day(given_date):
     return fecha_formateada
 
 def save_income_outcome(ventana,amount,income_outcome,description,date_of_data):
-    input(date_of_data)
     if validate_data(ventana,amount,income_outcome,description,date_of_data):
         try:
-            append_to_file(f"{date_of_data.strftime('%Y/%m/%d')}, {description}, {round(float(amount),2) if income_outcome=='Income' else round(float(amount)*-1,2)}",filename)
+            append_to_file(f"{date_of_data.strftime('%Y/%m/%d')}, {description}, {round(float(amount),2) if income_outcome=='Income' else round(float(amount)*-1,2)}")
             reset_grid(ventana)
             create_modal_window(f"{income_outcome.capitalize()} saved.")
         except:
@@ -267,10 +266,10 @@ def save_income_outcome(ventana,amount,income_outcome,description,date_of_data):
 def get_last_n_days_values(data, num_days):
     current_date = datetime.now().date()
     last_n_days_values = []
-    last_n_days_values = [entry[2] for entry in data if (current_date-datetime.strptime(entry[0], "%Y/%m/%d").date()).days<=num_days]
+    last_n_days_values = [entry[2] for entry in data if (current_date-datetime.strptime(entry[0], "%Y/%m/%d").date()).days<num_days]
     inc_out = {}
     inc_out["income"] = sum([value for value in last_n_days_values if value>0])
-    inc_out["outcome"] = sum([value for value in last_n_days_values if value<0])    
+    inc_out["outcome"] = sum([value for value in last_n_days_values if value<0])
     return inc_out
 
 def validate_data(ventana,amount,income_outcome,description,date_of_data):
@@ -297,10 +296,9 @@ def obtener_resolucion_monitor_actual():
     else:
         return "No se encontraron monitores."
 
-def append_to_file(linea,_filename="test_append_to_file.txt"):
-    
+def append_to_file(linea):
     try:
-        with open(_filename, "a+") as file:
+        with open(filename, "a+") as file:
             file.write(f"{linea}\n")
             file.seek(0)
             content = file.read()
