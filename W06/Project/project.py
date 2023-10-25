@@ -108,7 +108,7 @@ def create_grid(ventana, data):
                 label = Label(frame_grid, text=f'{item:,.2f}', anchor="se", justify="left", background=palette[grid_bg], font=palette["font_main"], fg=palette["font_color_main"])
                 label.grid(row=i, column=j + 1, padx=palette["pad_1"], pady=0, sticky="nsew")
             else:
-                label = Label(frame_grid, text=date_short_day(item) if j == 0 else item,wraplength=500, anchor="w", justify="left", background=palette[grid_bg], font=palette["font_main"], fg=palette["font_color_main"])
+                label = Label(frame_grid, text=date_short_day(item) if j == 0 else item.replace(";",","),wraplength=500, anchor="w", justify="left", background=palette[grid_bg], font=palette["font_main"], fg=palette["font_color_main"])
                 label.grid(row=i, column=j, padx=palette["pad_1"], pady=0, sticky="nsew")
     
     # Ajustar el tamaño del canvas según el tamaño del contenido
@@ -255,10 +255,9 @@ def date_short_day(given_date):
     return fecha_formateada
 
 def save_income_outcome(ventana,amount,income_outcome,description,date_of_data):
-    input(date_of_data)
     if validate_data(ventana,amount,income_outcome,description,date_of_data):
         try:
-            append_to_file(f"{date_of_data.strftime('%Y/%m/%d')}, {description}, {round(float(amount),2) if income_outcome=='Income' else round(float(amount)*-1,2)}",filename)
+            append_to_file(f"{date_of_data.strftime('%Y/%m/%d')}, {description.replace(',',';')}, {round(float(amount),2) if income_outcome=='Income' else round(float(amount)*-1,2)}",filename)
             reset_grid(ventana)
             create_modal_window(f"{income_outcome.capitalize()} saved.")
         except:
@@ -297,10 +296,9 @@ def obtener_resolucion_monitor_actual():
     else:
         return "No se encontraron monitores."
 
-def append_to_file(linea,_filename="test_append_to_file.txt"):
-    
+def append_to_file(linea,my_filename="test_history.txt"):
     try:
-        with open(_filename, "a+") as file:
+        with open(my_filename, "a+") as file:
             file.write(f"{linea}\n")
             file.seek(0)
             content = file.read()
