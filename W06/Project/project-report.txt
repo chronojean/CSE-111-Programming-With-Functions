@@ -60,6 +60,7 @@ Sadly I can't track the whole websites I've researched, but here's a small list 
 21. https://www.reddit.com/r/learnpython/comments/owdxk1/resizing_a_tkinter_canvas_to_show_the_entire/
 22. https://copyprogramming.com/howto/python-get-canvas-to-fit-windo-size-tkinter#how-to-to-resize-canvas-objects-to-window-size-in-tkinter-without-using-object-oriented-programming
 23. https://stackoverflow.com/questions/69615326/how-to-resize-the-width-of-the-canvas-dynamically
+24. https://stackoverflow.com/questions/11480234/datetime-and-timedelta
 
 
 =============Diagrams Used====================
