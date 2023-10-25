@@ -70,6 +70,8 @@ Can be found at https://github.com/chronojean/CSE-111-Programming-With-Functions
 you can check the commits, I've coded those file and changed them and re-write them from 2 to 10 times each, before each commit.
 Those experimental codes are all the .py except project.py test_project.py
 
+=============PYTEST====================
+I've spent my last afternoon, and everything was just fine. I'm glad for it.
 
 =============Debugging my code====================
 I've spent a lot of time debugging, specially when the UI wasn't working as intended, by ex: .pack() wasn't aligning items properly, it was later after a lot of research and effort that I throwed the idea of using .pack and switched to .grid() works like charm.
