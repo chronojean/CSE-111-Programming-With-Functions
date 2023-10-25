@@ -1,20 +1,23 @@
 import tkinter as tk
 import calendar
-import sys
 from screeninfo import get_monitors
-from tkinter import Frame, Label, Button,ttk,Entry
+from tkinter import Frame, Label, Button,ttk,Entry,Scrollbar
 from datetime import datetime
 from tkcalendar import DateEntry
 
 filename = "history.txt"
 palette = {
     "bg_main": "#002400",               #Main Background Color
-    "bg_1": "#556B2F",                  #Background color for lesser elements
+    "bg_0":"#657D37",                   #Background color 0 for lesser elements
+    "bg_1": "#556B2F",                  #Background color 1 for lesser elements
     "bg_2": "#000000",                  #Background color 2 for lesser elements
+    "bg_3": "#3F4D23",                  #Background color 3 for lesser elements
     "font_color_main": "#FFFFFF",       #Main Text Color
-    "font_main": ("Calibri", 14),       #Main Font
-    "font_1": ("Calibri", 12),          #Font for lesser elements
-    "font_2": ("Calibri Bold", 14),     #Font 2 for lesser elements
+    "font_color_warning": "#FF0000",    #Red font color for negative balance
+    "font_main": ("Calibri", 13),       #Main Font
+    "font_1": ("Calibri", 13),          #Font for lesser elements
+    "font_2": ("Calibri Bold", 18),     #Font 2 for lesser elements
+    "font_balance":("Comic Sans MS",14),#Font for total balance
     "pad_1": 1                          #Global padding option 1
 }
 
@@ -45,17 +48,18 @@ def create_section0(ventana):
     create_form(ventana)
 
 def create_form(ventana):
-    section0 = ventana.children.get("section0")    
+    section0 = ventana.children.get("section0")
+    is_entry_number = section0.register(is_a_number)
     lbl_amount = Label(section0, text="Amount: ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
-    entry_amount = Entry(section0,width=12,name="entry_amount",justify="right")
+    entry_amount = Entry(section0,width=12,name="entry_amount",justify="right",validate="all",validatecommand=(is_entry_number, "%P"))
     lbl_of = Label(section0, text=" of ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_main"])
     income_outcome = ttk.Combobox(section0, values=["Income", "Outcome"],font=palette["font_1"],state="readonly",name="income_outcome")
     income_outcome["width"] = max(len(option) for option in income_outcome["values"])+2
     income_outcome.set("Income")
-    cal = DateEntry(section0, width=12, background='darkblue',foreground='white', borderwidth=2, state="readonly",name="date_transaction")
+    cal = DateEntry(section0, width=12, background='darkblue',foreground='white', borderwidth=2, state="readonly",name="date_transaction",font=palette["font_1"])
     lbl_desc = Label(section0,text="Description",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     entry_desc = Entry(section0,name="entry_desc", justify="left")
-    btn_save_income_outcome = Button(section0, text="Save",relief="solid",background=palette["bg_2"],fg=palette["font_color_main"],font=palette["font_1"],command=lambda: save_income_outcome(ventana,entry_amount.get(),income_outcome.get(),entry_desc.get(),cal.get_date()))
+    btn_save_income_outcome = Button(section0, text="Save",relief="solid",background=palette["bg_2"],highlightbackground=palette["bg_3"],activebackground=palette["bg_0"],activeforeground=palette["font_color_main"],fg=palette["font_color_main"],font=palette["font_1"],command=lambda: save_income_outcome(ventana,entry_amount.get(),income_outcome.get(),entry_desc.get(),cal.get_date()))
     lbl_amount.grid(row=0,column=0,sticky="nsew")
     entry_amount.grid(row=0,column=1,sticky="nsew")
     lbl_of.grid(row=0,column=2,sticky="nsew")
@@ -65,45 +69,75 @@ def create_form(ventana):
     lbl_desc.grid(row=1,column=0,sticky="nsew")
     entry_desc.grid(row=1,column=1,columnspan=3,sticky="nsew")
     btn_save_income_outcome.grid(row=1,column=4)
-
+def is_a_number(val):
+    if (val!="" or val.startswith(".") )and (not (es_numero(val)) or " " in str(val)):
+        return False
+    return True
 def create_section1(ventana):
     section1 = Frame(ventana, background=palette["bg_main"], relief="flat", borderwidth=0,name="section1")
-    section1.pack(padx=0, pady=0, fill=tk.BOTH, expand=1)
+    section1.pack(padx=0, pady=0, fill="y", expand=1)
     create_grid(ventana,load_history(filename))
 
-def create_grid(ventana,data):
-    frame = ventana.children.get("section1")
-    rows_to_display = 25
-    for i, row in enumerate(data if len(data)<=rows_to_display else data[-rows_to_display:]):
+def create_grid(ventana, data):
+    section1 = ventana.children.get("section1")
+    
+    # Crear un Canvas para contener el Frame con el grid
+    canvas = tk.Canvas(section1,background=palette["bg_main"])
+    canvas.pack(side="left", fill="both", expand=True)
+    
+    # Agregar un scrollbar vertical al Canvas
+    scrollbar = tk.Scrollbar(section1, orient="vertical", command=canvas.yview,activebackground="GREEN2",background="GREEN4",border=4,highlightbackground=palette["bg_0"],highlightthickness=0,repeatdelay=50,repeatinterval=75,troughcolor=palette["bg_2"],width=25,relief="flat")
+    scrollbar.pack(side="right", fill="y")
+    
+    canvas.configure(yscrollcommand=scrollbar.set)
+    
+    frame_grid = tk.Frame(canvas)
+    frame_id = canvas.create_window((0, 0), window=frame_grid, anchor="nw")
+    
+    for i, row in enumerate(data):
         for j, item in enumerate(row):
-            if j==2 and es_numero(item) and float(item)>0:
-                label = Label(frame, text=f'{item:,}', anchor="e",justify="left",background=palette["bg_1"],font=palette["font_main"],fg=palette["font_color_main"])
+            grid_bg = f"bg_{(i%2)}"
+            if j == 2 and es_numero(item) and float(item) > 0:
+                label = Label(frame_grid, text=f'{item:,.2f}', anchor="se", justify="left", background=palette[grid_bg], font=palette["font_main"], fg=palette["font_color_main"])
                 label.grid(row=i, column=j, padx=palette["pad_1"], pady=0, sticky="nsew")
-                label = Label(frame, text="", anchor="e",justify="left",background=palette["bg_1"],font=palette["font_main"],fg=palette["font_color_main"])
-                label.grid(row=i, column=j+1, padx=palette["pad_1"], pady=0, sticky="nsew")
-            elif j==2 and es_numero(item) and not float(item)>0:
-                label = Label(frame, text="", anchor="e",justify="left",background=palette["bg_1"],font=palette["font_main"],fg=palette["font_color_main"])
+                label = Label(frame_grid, text="", anchor="e", justify="right", background=palette[grid_bg], font=palette["font_main"], fg=palette["font_color_main"])
+                label.grid(row=i, column=j + 1, padx=palette["pad_1"], pady=0, sticky="nsew")
+            elif j == 2 and es_numero(item) and not float(item) > 0:
+                label = Label(frame_grid, text="", anchor="e", justify="right", background=palette[grid_bg], font=palette["font_main"], fg=palette["font_color_main"])
                 label.grid(row=i, column=j, padx=palette["pad_1"], pady=0, sticky="nsew")
-                label = Label(frame, text=f'{item:,}', anchor="e",justify="left",background=palette["bg_1"],font=palette["font_main"],fg=palette["font_color_main"])
-                label.grid(row=i, column=j+1, padx=palette["pad_1"], pady=0, sticky="nsew")
+                label = Label(frame_grid, text=f'{item:,.2f}', anchor="se", justify="left", background=palette[grid_bg], font=palette["font_main"], fg=palette["font_color_main"])
+                label.grid(row=i, column=j + 1, padx=palette["pad_1"], pady=0, sticky="nsew")
             else:
-                label = Label(frame, text=date_short_day(item) if j==0 else item, anchor="w",justify="left",background=palette["bg_1"],font=palette["font_main"],fg=palette["font_color_main"])
+                label = Label(frame_grid, text=date_short_day(item) if j == 0 else item,wraplength=500, anchor="w", justify="left", background=palette[grid_bg], font=palette["font_main"], fg=palette["font_color_main"])
                 label.grid(row=i, column=j, padx=palette["pad_1"], pady=0, sticky="nsew")
-    try:
-        label = Label(frame,text="Current Money: ",background=palette["bg_main"],fg="White",relief="sunken",font=palette["font_2"])
-        label.grid(row=i+1,columnspan=2,sticky="nsew")
-        label = Label(frame,text=f'{sum([row[2] for row in data]):,}',background=palette["bg_2"],fg="White",relief="sunken",font=palette["font_2"])
-        label.grid(row=i+1,column=2,columnspan=2,sticky="nsew")
-        for i in range(len(data)):
-            frame.grid_rowconfigure(i, weight=1)
-        for j in range(len(data[0])):
-            frame.grid_columnconfigure(j, weight=1)
-    except:
-        None
+    
+    # Ajustar el tamaño del canvas según el tamaño del contenido
+    def adjust_canvas_size(event):
+        canvas_width = canvas.winfo_reqwidth()
+        if event.width > canvas_width:
+            # expand canvas to the width of scrollable_frame
+            canvas.configure(width=event.width)
+        else:
+            # expand scrollable_frame to the width of canvas
+            canvas.itemconfigure(frame_id, width=canvas_width)
+        canvas.configure(scrollregion=canvas.bbox("all"))
+    
+    frame_grid.bind("<Configure>", adjust_canvas_size)
+    
+    # Actualizar el canvas
+    canvas.update()
+    canvas.yview_moveto(1.0)
+    
 
 def reset_grid(ventana):
+    ventana.children.get("section0").children.get("entry_amount").delete(0, "end")
+    ventana.children.get("section0").children.get("entry_desc").delete(0, "end")
+
     ventana.children.get("section1").destroy()
+    ventana.children.get("section2").destroy()
+    
     create_section1(ventana)
+    create_section2(ventana)
     
 def create_section2(ventana):
     section2 = Frame(ventana,background=palette["bg_main"],relief="flat",borderwidth=0,name="section2")
@@ -114,46 +148,62 @@ def create_summary(ventana):
     section2 = ventana.children.get("section2")
     section2.grid_rowconfigure(0, weight=1)
     section2.grid_columnconfigure((0, 1, 2, 3), weight=1)
+    data = load_history(filename)
     
+    try:
+        label = Label(section2, text="Current Money: ", background=palette["bg_main"], fg="White", relief="sunken", font=palette["font_2"])
+        label.grid(row=0, columnspan=2, sticky="nsew")
+        label = Label(section2, text=f'{sum([row[2] for row in data]):,.2f}', background=palette["bg_2"], fg="White", relief="sunken", font=palette["font_2"])
+        label.grid(row= 0, column=2, columnspan=2, sticky="nsew")
+        for i in range(len(data)):
+            section2.grid_rowconfigure(i, weight=1)
+        for j in range(len(data[0])):
+            section2.grid_columnconfigure(j, weight=1)
+    except:
+        pass
+     
     lbl_summary_title_type = Label(section2, text="              ",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     lbl_summary_title_income = Label(section2, text="Income",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     lbl_summary_title_outcome = Label(section2, text="Outcome",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     lbl_summary_title_balance = Label(section2, text="Balance",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"])
     
-    lbl_summary_daily_type = Label(section2, text="daily summary",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"],anchor="w", justify="left")
-    lbl_summary_daily_income = Label(section2, text="daily summary Income",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
-    lbl_summary_daily_outcome = Label(section2, text="daily summary Outcome",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
-    lbl_summary_daily_balance = Label(section2, text="daily summary Balance",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    inc_out = get_last_n_days_values(data,1)
+    lbl_summary_daily_type = Label(section2, text="Daily Summary",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"],anchor="w", justify="left")
+    lbl_summary_daily_income = Label(section2, text=f"{inc_out['income']:,.2f}",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    lbl_summary_daily_outcome = Label(section2, text=f"{inc_out['outcome']:,.2f}",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    lbl_summary_daily_balance = Label(section2, text=f"{(inc_out['income']+inc_out['outcome']):,.2f}",background=palette["bg_1" if (inc_out['income']+inc_out['outcome'])>=0 else "font_color_warning"],fg=palette["font_color_main"],font=palette["font_balance"],anchor="e", justify="right")
     
-    lbl_summary_weekly_type = Label(section2, text="weekly summary",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"],anchor="w", justify="left")
-    lbl_summary_weekly_income = Label(section2, text="weekly summary Income",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
-    lbl_summary_weekly_outcome = Label(section2, text="weekly summary Outcome",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
-    lbl_summary_weekly_balance = Label(section2, text="weekly summary Balance",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    inc_out = get_last_n_days_values(data,7)
+    lbl_summary_weekly_type = Label(section2, text="Weekly Summary",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"],anchor="w", justify="left")
+    lbl_summary_weekly_income = Label(section2, text=f"{inc_out['income']:,.2f}",background=palette["bg_3"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    lbl_summary_weekly_outcome = Label(section2, text=f"{inc_out['outcome']:,.2f}",background=palette["bg_3"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    lbl_summary_weekly_balance = Label(section2, text=f"{(inc_out['income']+inc_out['outcome']):,.2f}",background=palette["bg_3" if (inc_out['income']+inc_out['outcome'])>=0 else "font_color_warning"],fg=palette["font_color_main"],font=palette["font_balance"],anchor="e", justify="right")
     
-    lbl_summary_monthly_type = Label(section2, text="Monthly summary",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"],anchor="w", justify="left")
-    lbl_summary_monthly_income = Label(section2, text="Monthly summary Income",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
-    lbl_summary_monthly_outcome = Label(section2, text="Monthly summary Outcome",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
-    lbl_summary_monthly_balance = Label(section2, text="Monthly summary Balance",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    inc_out = get_last_n_days_values(data,30)
+    lbl_summary_monthly_type = Label(section2, text="Monthly Summary",background=palette["bg_main"],fg=palette["font_color_main"],font=palette["font_1"],anchor="w", justify="left")
+    lbl_summary_monthly_income = Label(section2, text=f"{inc_out['income']:,.2f}",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    lbl_summary_monthly_outcome = Label(section2, text=f"{inc_out['outcome']:,.2f}",background=palette["bg_1"],fg=palette["font_color_main"],font=palette["font_1"],anchor="e", justify="right")
+    lbl_summary_monthly_balance = Label(section2, text=f"{(inc_out['income']+inc_out['outcome']):,.2f}",background=palette["bg_1" if (inc_out['income']+inc_out['outcome'])>=0 else "font_color_warning"],fg=palette["font_color_main"],font=palette["font_balance"],anchor="e", justify="right")
     
-    lbl_summary_title_type.grid(row=0,column=0,sticky="nsew",padx=1,pady=1)
-    lbl_summary_title_income.grid(row=0,column=1,sticky="nsew",padx=1,pady=1)
-    lbl_summary_title_outcome.grid(row=0,column=2,sticky="nsew",padx=1,pady=1)
-    lbl_summary_title_balance.grid(row=0,column=3,sticky="nsew",padx=1,pady=1)
+    lbl_summary_title_type.grid(row=1,column=0,sticky="nsew",padx=1,pady=1)
+    lbl_summary_title_income.grid(row=1,column=1,sticky="nsew",padx=1,pady=1)
+    lbl_summary_title_outcome.grid(row=1,column=2,sticky="nsew",padx=1,pady=1)
+    lbl_summary_title_balance.grid(row=1,column=3,sticky="nsew",padx=1,pady=1)
     
-    lbl_summary_daily_type.grid(row=1,column=0,sticky="nsew",padx=1)
-    lbl_summary_daily_income.grid(row=1,column=1,sticky="nsew",padx=1)
-    lbl_summary_daily_outcome.grid(row=1,column=2,sticky="nsew",padx=1)
-    lbl_summary_daily_balance.grid(row=1,column=3,sticky="nsew",padx=1)
+    lbl_summary_daily_type.grid(row=2,column=0,sticky="nsew",padx=1)
+    lbl_summary_daily_income.grid(row=2,column=1,sticky="nsew",padx=1)
+    lbl_summary_daily_outcome.grid(row=2,column=2,sticky="nsew",padx=1)
+    lbl_summary_daily_balance.grid(row=2,column=3,sticky="nsew",padx=1)
     
-    lbl_summary_weekly_type.grid(row=2,column=0,sticky="nsew",padx=1)
-    lbl_summary_weekly_income.grid(row=2,column=1,sticky="nsew",padx=1)
-    lbl_summary_weekly_outcome.grid(row=2,column=2,sticky="nsew",padx=1)
-    lbl_summary_weekly_balance.grid(row=2,column=3,sticky="nsew",padx=1)
+    lbl_summary_weekly_type.grid(row=3,column=0,sticky="nsew",padx=1)
+    lbl_summary_weekly_income.grid(row=3,column=1,sticky="nsew",padx=1)
+    lbl_summary_weekly_outcome.grid(row=3,column=2,sticky="nsew",padx=1)
+    lbl_summary_weekly_balance.grid(row=3,column=3,sticky="nsew",padx=1)
     
-    lbl_summary_monthly_type.grid(row=3,column=0,sticky="nsew",padx=1)
-    lbl_summary_monthly_income.grid(row=3,column=1,sticky="nsew",padx=1)
-    lbl_summary_monthly_outcome.grid(row=3,column=2,sticky="nsew",padx=1)
-    lbl_summary_monthly_balance.grid(row=3,column=3,sticky="nsew",padx=1)
+    lbl_summary_monthly_type.grid(row=4,column=0,sticky="nsew",padx=1)
+    lbl_summary_monthly_income.grid(row=4,column=1,sticky="nsew",padx=1)
+    lbl_summary_monthly_outcome.grid(row=4,column=2,sticky="nsew",padx=1)
+    lbl_summary_monthly_balance.grid(row=4,column=3,sticky="nsew",padx=1)
    
 def create_modal_window(message):
     modal_window = tk.Toplevel()
@@ -175,10 +225,11 @@ def load_history(filename):
                 row = linea.strip("\n").split(", ")
                 for i in range(len(row)):
                     try:
-                        row[i]=round(float(row[i]))
+                        row[i]=round(float(row[i]),2)
                     except:
                         None
                 arr.append(row)
+        arr = sorted(arr, key=lambda x: x[0])
         return arr
     except (FileNotFoundError,PermissionError):
         create_modal_window("Couldn't open the history file")
@@ -205,10 +256,21 @@ def date_short_day(given_date):
 
 def save_income_outcome(ventana,amount,income_outcome,description,date_of_data):
     if validate_data(ventana,amount,income_outcome,description,date_of_data):
-        append_to_file(f"{date_of_data.strftime('%Y/%m/%d')}, {description}, {float(amount) if income_outcome=='Income' else (float(amount)*-1)}")
-        reset_grid(ventana)
-
-        create_modal_window("Entry saved.")
+        try:
+            append_to_file(f"{date_of_data.strftime('%Y/%m/%d')}, {description}, {round(float(amount),2) if income_outcome=='Income' else round(float(amount)*-1,2)}")
+            reset_grid(ventana)
+            create_modal_window(f"{income_outcome.capitalize()} saved.")
+        except:
+            create_modal_window("An error ocurred on save, File is locked as read-only or you don't have the required permissions to work with the file.")
+        
+def get_last_n_days_values(data, num_days):
+    current_date = datetime.now().date()
+    last_n_days_values = []
+    last_n_days_values = [entry[2] for entry in data if (current_date-datetime.strptime(entry[0], "%Y/%m/%d").date()).days<num_days]
+    inc_out = {}
+    inc_out["income"] = sum([value for value in last_n_days_values if value>0])
+    inc_out["outcome"] = sum([value for value in last_n_days_values if value<0])
+    return inc_out
 
 def validate_data(ventana,amount,income_outcome,description,date_of_data):
     if not es_numero(amount) or float(amount) <=0:
