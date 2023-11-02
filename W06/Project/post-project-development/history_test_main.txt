@@ -1,0 +1,47 @@
+2023/10/01, Salary, 50000
+2023/10/01, Bonus, 3000
+2023/10/02, 2 x Hamburgers, -26000
+2023/10/03, Breakfast, -5000
+2023/10/04, Lunch, -4000
+2023/10/05, Salary, 50000
+2023/10/06, Bonus, 3000
+2023/10/07, 2 x Hamburgers, -26000
+2023/10/08, Breakfast, -5000
+2023/10/09, Lunch, -4000
+2023/10/10, Salary, 50000
+2023/10/11, Bonus, 3000
+2023/10/12, 2 x Hamburgers, -26000
+2023/10/13, Breakfast, -5000
+2023/10/14, Lunch, -4000
+2023/10/15, Salary, 50000
+2023/10/16, Bonus, 3000
+2023/10/17, 2 x Hamburgers, -26000
+2023/10/18, Breakfast, -5000
+2023/10/19, Lunch, -4000
+2023/10/20, Salary, 50000
+2023/10/21, Bonus, 3000
+2023/10/22, 2 x Hamburgers, -26000
+2023/10/23, Breakfast, -5000
+2023/10/24, Lunch, -4000
+2023/10/24, Salary, 50000
+2023/10/24, Bonus, 3000
+2023/10/24, 2 x Hamburgers, -26000
+2023/10/24, Breakfast, -5000
+2023/10/24, Lunch, -4000
+2023/10/24, Salary, 50000
+2023/10/24, Bonus, 3000
+2023/10/24, 2 x Hamburgers, -26000
+2023/10/24, Breakfast, -5000
+2023/10/24, Lunch, -4000
+2023/10/25, This is a very very very very looooooooooooooooong description, -150000.0
+2023/10/25, Payed for good, 30000.0
+2023/10/25, BIG PAY FOR ME :D, 150000.0
+2023/10/25, Hanging out with friends (had to ask the storekeeper to let me buy more than i have gotta pay it latter), -200000
+2023/10/17, Transaction 3, 75.25
+2023/10/25, Dad gave me money; he's so good., 50000.0
+2023/10/25, out of money!, -6075.25
+2023/10/25, Another good pay!, 150000.0
+2023/10/18, I forgot to register the bills; XD., 70000.0
+2023/10/18, Whoops; saved the bills as income; fixing..., -140000.0
+2023/10/25, small income; goood!, -10000.0
+2023/10/25, Another outcome, -1123.0
