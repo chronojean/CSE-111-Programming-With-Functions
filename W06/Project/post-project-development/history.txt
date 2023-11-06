@@ -1,0 +1,4 @@
+2023/11/03, Loan for fix electricity issues at home, 500000.0
+2023/11/03, Cheese and sweet paste bread for lunch, -5000.0
+2023/11/03, Dinner; Breakfast and afternoon snack, -20000.0
+2023/11/03, Hamburguer and soda for dinner, -10000.0
